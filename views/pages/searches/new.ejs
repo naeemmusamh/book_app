@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Collection</title>
+    <link rel="stylesheet" href="/styles/reset.css">
+    <link rel="stylesheet" href="/styles/base.css">
+</head>
+
+<body>
+    <header>
+        <div class="topnav">
+            <a href="#" class="active">Book Collection</a>
+            <div id="myLinks">
+                <a href="http://localhost:`${PORT}`/">Show</a>
+                <a href="./searches/new.ejs">New</a>
+                <a href="./searches/show.ejs">Searches</a>
+            </div>
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                <i class="fa fa-bars"></i>
+            </a>
+        </div>
+        <h2 class="p1">Search by Title or Author</h2>
+    </header>
+    <main>
+        <form action="/searches" method="POST">
+            <fieldset class="input1">
+                <input class="p2" type="text" name="search" placeholder="Enter a title or author" required>
+            </fieldset>
+            <fieldset class="input2">
+                <label for="title">
+                <p class="p3">Title</p>
+                <input class="p4" type="radio" name="searchBy" value="title" required>
+            </label>
+            </fieldset>
+            <fieldset class="input3">
+                <label for="author">
+                <p class="p5">Author</p>
+                <input class="p6" type="radio" name="searchBy" value="author" required>
+            </label>
+            </fieldset>
+            <fieldset class="input4">
+                <button class="p7" type="submit">search the google books API</button>
+            </fieldset>
+        </form>
+    </main>
+    <footer></footer>
+</body>
+
+</html>
