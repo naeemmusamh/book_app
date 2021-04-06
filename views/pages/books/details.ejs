@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../../layout/head') %>
+</head>
+
+<body>
+    <header>
+        <%- include('../../layout/header') %>
+    </header>
+    <main>
+        <section>
+            <h1>this the details bags</h1>
+            <ul>
+                <% results.forEach(books => { %>
+                    <h4>
+                        Title:
+                        <%= books.title %>
+                    </h4>
+                    <p>
+                        Author:
+                        <%= books.author %>
+                    </p>
+                    <p>
+                        ISBN:
+                        <%= books.isbn %>
+                    </p>
+                    <img src="<%= books.image_url %> ">
+                    <p>
+                        Description:
+                        <%= books.description %>
+                    </p>
+                    <% }) %>
+            </ul>
+        </section>
+    </main>
+    <footer>
+        <%- include('../../layout/footer') %>
+    </footer>
+    <script src="../js/app.js"></script>
+</body>
+
+</html>
