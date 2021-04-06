@@ -2,21 +2,18 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Collection</title>
-    <link rel="stylesheet" href="/style/reset.css">
-    <link rel="stylesheet" href="/styles/modules.css">
+    <%- include('../../layout/head') %>
 </head>
 
 <body>
-    <header></header>
+    <header>
+        <%- include('../../layout/header') %>
+    </header>
     <main class="card">
         <section>
             <% searchResults.forEach(book=> {%>
                 <section>
-                    <img src="<%= book.thumbnail %>" alt="">
+                    <img src="<%= book.image_url %>" alt="">
                     <h3>
                         <%= book.title %>
                     </h3>
@@ -27,11 +24,23 @@
                         <%= book.description%>
                     </p>
                 </section>
+                <form action="/books" method="POST">
+                    <input type="hidden" name="title" value="<%= book.title %>">
+                    <input type="hidden" name="author" value="<%= book.author %>">
+                    <input type="hidden" name="image_url" value="<%= book.image_url %>">
+                    <input type="hidden" name="description" value="<%= book.description %>">
+                    <input type="hidden" name="isbn" value="<%= book.isbn %>">
+                    <input type="submit" value="save book">
+                </form>
                 <% }) %>
 
         </section>
+
     </main>
-    <footer></footer>
+    <footer>
+        <%- include('../../layout/footer') %>
+    </footer>
+    <script src="../public/js/app.js"></script>
 </body>
 
 </html>
