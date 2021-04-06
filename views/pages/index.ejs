@@ -10,23 +10,23 @@
         <%- include('../layout/header') %>
     </header>
     <main>
-        <div>
+        <div class="save">
             <%= results.length %> save books
         </div>
-        <section>
+        <section class="card">
             <ul>
                 <% if ( results.length ) { %>
                     <% results.forEach( item => { %>
                         <li>
                             <div>
-                                <h3>
+                                <h3 class="title1">
                                     <%= item.title %>
                                 </h3>
-                                <p>
+                                <p class="author1">
                                     <%= item.author %>
                                 </p>
-                                <img src="<%= item.image_url %>">
-                                <span><a href="/books/<%= item.id %>" target="_blank">View Details</a></span>
+                                <img src="<%= item.image_url %>" class="img1">
+                                <button class="button1"><a href="/books/<%= item.id %>" target="_blank">View Details</a></button>
                             </div>
                         </li>
                         <% }); %>

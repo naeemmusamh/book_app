@@ -10,29 +10,33 @@
         <%- include('../../layout/header') %>
     </header>
     <main>
-        <section>
-            <h1>this the details bags</h1>
+        <section class="card">
             <ul>
-                <% results.forEach(books => { %>
-                    <h4>
-                        Title:
-                        <%= books.title %>
-                    </h4>
-                    <p>
-                        Author:
-                        <%= books.author %>
-                    </p>
-                    <p>
-                        ISBN:
-                        <%= books.isbn %>
-                    </p>
-                    <img src="<%= books.image_url %> ">
-                    <p>
-                        Description:
-                        <%= books.description %>
-                    </p>
-                    <% }) %>
+                <h4 class="title1">
+                    Title:
+                    <%= books.title %>
+                </h4>
+                <p class="author1">
+                    Author:
+                    <%= books.author %>
+                </p>
+                <p class="author1">
+                    ISBN:
+                    <%= books.isbn %>
+                </p>
+                <img src="<%= books.image_url %>" class="img2">
+                <p class="author1">
+                    Description:
+                    <%= books.description %>
+                </p>
             </ul>
+            <form action="/update/<%= books.id %>" method="POST" class="button2">
+                <button type="submit">Update the books</button>
+            </form>
+            <form action="/books/delete/<%= books.id %>?_method=DELETE" method="POST">
+                <input type="hidden" value="<%= books.id %> ">
+                <input type="submit" value="Delete Books" class="button3">
+            </form>
         </section>
     </main>
     <footer>

@@ -12,6 +12,10 @@ const cors = require('cors');
 //Create an pg app
 const pg = require('pg');
 
+//Create an method-override
+const methodOverride = require('method-override');
+
+
 //create an superagent app
 const superagent = require('superagent');
 const { request, response } = require('express');
@@ -31,6 +35,9 @@ app.use(express.static('./public'));
 
 //the app setup to Database
 const client = new pg.Client(process.env.DATABASE_URL);
+
+//override with the Method header in the request
+app.use(methodOverride('_method'));
 
 // client.on('error', error => {
 //     console.log(error);
@@ -66,8 +73,8 @@ app.get('/books/:id', (request, response) => {
     let selectQuery = `SELECT * FROM tasks WHERE id=$1;`;
     let safeValue = [id];
     client.query(selectQuery, safeValue).then(results => {
-        console.log(results);
-        response.render('pages/books/details', { results: results.rows });
+        // console.log(results);
+        response.render('pages/books/details', { books: results.rows[0] });
     }).catch((error) => {
         response.render('pages/error', { error: error });
     });
@@ -111,6 +118,44 @@ app.post('/searches', (request, response) => {
     }).catch((error) => {
         console.log('error', error);
         response.status(500).render('pages/error');
+    });
+});
+
+//render the update page
+app.post('/update/:id', (request, response) => {
+    let id = request.params.id;
+    let selectQuery = 'SELECT * FROM tasks WHERE id=$1;';
+    let safeValue = [id];
+    client.query(selectQuery, safeValue).then(results => {
+        response.render('pages/books/update', { books: results.rows[0] });
+    }).catch((error) => {
+        response.render('pages/error', { error: error });
+    });
+});
+
+//to update the book by ID
+app.put('/books/update/:id', (request, response) => {
+    let id = request.params.id;
+    let { title, author, image_url, isbn, description } = request.body;
+    let safeValue = [title, author, image_url, isbn, description, id];
+    let updateValue = 'UPDATE tasks SET title=$1, author=$2, image_url=$3, isbn=$4, description=$5 WHERE id=$6;';
+    client.query(updateValue, safeValue).then(() => {
+        response.redirect(`/books/${id}`);
+    }).catch((error) => {
+        response.render('pages/error', { error: error });
+    });
+});
+
+
+//to delete the book by ID
+app.delete('/books/delete/:id', (request, response) => {
+    let id = request.params.id;
+    let safeValue = [id];
+    let deleteValue = 'DELETE FROM tasks WHERE id=$1;';
+    client.query(deleteValue, safeValue).then(() => {
+        response.redirect('/');
+    }).catch((error) => {
+        response.render('pages/error', { error: error });
     });
 });
 
