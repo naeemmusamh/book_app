@@ -22,7 +22,7 @@ const { request, response } = require('express');
 
 //the app setup
 const app = express();
-const PORT = process.env.PORT || 5051;
+const PORT = process.env.PORT || 5050;
 
 //the app middleware
 app.use(express.urlencoded({ extended: true }));
